@@ -1,0 +1,22 @@
+### Payment Request
+POST http://localhost:3000/payment
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "number": "1234567812345678",
+  "expiry": "12/25",
+  "cvc": "123"
+}
+
+### Ok URL Endpoint
+POST http://localhost:3000/ok-url
+Content-Type: application/json
+
+{
+  "AuthenticationResponse": "<some_encoded_response_here>"
+}
+
+### Fail URL Endpoint
+POST http://localhost:3000/fail-url
+Content-Type: application/json
