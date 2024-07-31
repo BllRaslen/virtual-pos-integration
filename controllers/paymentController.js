@@ -7,8 +7,8 @@ const SANAL_POS = {
     merchant_id: '496',
     username: 'apitest',
     password: 'api123',
-    ok_url: 'http://127.0.0.1:3000/ok-url',
-    fail_url: 'http://127.0.0.1:3000/fail-url',
+    ok_url: '/ok-url',
+    fail_url: '/fail-url',
     kart_onay_url: 'https://boatest.kuveytturk.com.tr/boa.virtualpos.services/Home/ThreeDModelPayGate',
     odeme_onay_url: 'https://boatest.kuveytturk.com.tr/boa.virtualpos.services/Home/ThreeDModelProvisionGate',
 };
