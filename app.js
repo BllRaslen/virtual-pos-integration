@@ -1,22 +1,21 @@
-
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const paymentRoutes = require('./routes/paymentRoutes'); // Adjust the path as necessary
 const path = require('path');
-const paymentRoutes = require('./routes/paymentRoutes');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// Middleware to parse JSON request bodies
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files from the 'views' directory
-app.use(express.static(path.join(__dirname, 'views')));
-
-// Use payment routes defined in the paymentRoutes module
+// Use the payment routes
 app.use('/', paymentRoutes);
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
+

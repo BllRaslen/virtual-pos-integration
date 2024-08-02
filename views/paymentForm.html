@@ -1,77 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .container {
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            width: 300px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-group button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2>Payment Form</h2>
-    <form id="paymentForm" action="http://localhost:3000/payment" method="post">
-        <div class="form-group">
-            <label for="name">Cardholder Name</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="number">Card Number</label>
-            <input type="text" id="number" name="number" required>
-        </div>
-        <div class="form-group">
-            <label for="expiry">Expiry Date (MM/YY)</label>
-            <input type="text" id="expiry" name="expiry" required>
-        </div>
-        <div class="form-group">
-            <label for="cvc">CVC</label>
-            <input type="text" id="cvc" name="cvc" required>
-        </div>
-        <div class="form-group">
-            <button type="submit">Pay Now</button>
-        </div>
-    </form>
-</div>
-</body>
-</html>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Payment Form</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--            background-color: #f0f0f0;-->
+<!--        }-->
+<!--        .container {-->
+<!--            background: #fff;-->
+<!--            padding: 20px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--            border-radius: 5px;-->
+<!--            width: 300px;-->
+<!--        }-->
+<!--        .form-group {-->
+<!--            margin-bottom: 15px;-->
+<!--        }-->
+<!--        .form-group label {-->
+<!--            display: block;-->
+<!--            margin-bottom: 5px;-->
+<!--        }-->
+<!--        .form-group input {-->
+<!--            width: 100%;-->
+<!--            padding: 8px;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+<!--        .form-group button {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            background-color: #007bff;-->
+<!--            color: #fff;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .form-group button:hover {-->
+<!--            background-color: #0056b3;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h2>Payment Form</h2>-->
+<!--    <form id="paymentForm" action="http://localhost:3000/payment" method="post">-->
+<!--        <div class="form-group">-->
+<!--            <label for="name">Cardholder Name</label>-->
+<!--            <input type="text" id="name" name="name" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="number">Card Number</label>-->
+<!--            <input type="text" id="number" name="number" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="expiry">Expiry Date (MM/YY)</label>-->
+<!--            <input type="text" id="expiry" name="expiry" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="cvc">CVC</label>-->
+<!--            <input type="text" id="cvc" name="cvc" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <button type="submit">Pay Now</button>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<KuveytTurkVPosMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <APIVersion>TDV2.0.0</APIVersion>
+    <OkUrl>http://localhost:3000/ok-url</OkUrl>
+    <FailUrl>http://localhost:3000/fail-url</FailUrl>
+    <HashData>I52etF2ZEEZ2/4XcqxBu9tSHTLw=</HashData>
+    <MerchantId>496</MerchantId>
+    <CustomerId>400235</CustomerId>
+    <DeviceData>
+        <DeviceChannel>02</DeviceChannel>
+        <ClientIP>::1</ClientIP>
+    </DeviceData>
+    <CardHolderData>
+        <BillAddrCity>Istanbul</BillAddrCity>
+        <BillAddrCountry>76</BillAddrCountry>
+        <BillAddrLine1>Turkey</BillAddrLine1>
+        <BillAddrPostCode>54000</BillAddrPostCode>
+        <BillAddrState>40</BillAddrState>
+        <Email>dev.bllraslen@gmail.com</Email>
+        <MobilePhone>
+            <Cc>90</Cc>
+            <Subscriber>1234567899</Subscriber>
+        </MobilePhone>
+    </CardHolderData>
+    <UserName>apitest</UserName>
+    <CardNumber>5188961939192544</CardNumber>
+    <CardExpireDateYear>25</CardExpireDateYear>
+    <CardExpireDateMonth>06</CardExpireDateMonth>
+    <CardCVV2>929</CardCVV2>
+    <CardHolderName>Bilal RASLEN</CardHolderName>
+    <CardType>Troy</CardType>
+    <TransactionType>Sale</TransactionType>
+    <InstallmentCount>0</InstallmentCount>
+    <Amount>500</Amount>
+    <DisplayAmount>500</DisplayAmount>
+    <CurrencyCode>0949</CurrencyCode>
+    <MerchantOrderId>web-odeme</MerchantOrderId>
+    <TransactionSecurity>3</TransactionSecurity>
+</KuveytTurkVPosMessage>
