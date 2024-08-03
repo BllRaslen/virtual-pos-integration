@@ -5,6 +5,7 @@ const url = require('url');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const xml2js = require('xml2js'); // Add xml2js for parsing XML
 
 
 // Configuration for the Kuveyt Turk Virtual POS (Sanal POS)
@@ -13,8 +14,8 @@ const SANAL_POS = {
     merchant_id: '496',
     username: 'apitest',
     password: 'api123',
-    ok_url: 'https://virtual-pos-integration.vercel.app/ok-url',
-    fail_url: 'https://virtual-pos-integration.vercel.app/fail-url',
+    ok_url: 'http://localhost:3000/ok-url',
+    fail_url: 'http://localhost:3000/fail-url',
     kart_onay_url: 'https://boatest.kuveytturk.com.tr/boa.virtualpos.services/Home/ThreeDModelPayGate',
     odeme_onay_url: 'https://boatest.kuveytturk.com.tr/boa.virtualpos.services/Home/ThreeDModelProvisionGate',
 };
@@ -123,37 +124,37 @@ const processPayment = async (req, res) => {
     }
 };
 
-// Handle payment fulfillment
+
+
+
 const handlePaymentFulfillment = async (req, res) => {
     try {
-        // Extract data from the request
-        const xmlMessage = req.body;
-        const paymentData = parseXmlMessage(xmlMessage);
-        const {  Status } = paymentData;
+        // Assuming req.body contains XML data
+        const xmlData = req.body;
 
-        if (Status === 'Success') {
-            console.log('xmlMessage', xmlMessage);
-            res.send(xmlMessage);
-        } else {
-            //console.log('Payment failed:', TransactionId);
-            res.status(400).send('Payment failed');
-        }
+        // Optionally parse XML to JSON if needed
+        const parser = new xml2js.Parser();
+        const jsonData = await parser.parseStringPromise(xmlData);
+
+        // Send new request to Kuveyt Turk API
+        const response = await axios.post('https://sanalpos.kuveytturk.com.tr/ServiceGateWay/Home/ThreeDModelProvisionGate', xmlData, {
+            headers: { 'Content-Type': 'application/xml' },
+        });
+
+        // Log and respond
+        console.log('Payment Fulfillment Response:', response.data);
+        res.status(200).send('Payment fulfillment processed successfully.');
     } catch (error) {
-        console.error('Error handling payment fulfillment:', error);
+        console.error('Error processing payment fulfillment:', error);
         if (!res.headersSent) {
-            res.status(500).send('Error handling payment fulfillment');
+            res.status(500).send('Error processing payment fulfillment');
         }
     }
 };
 
-// XML parsing function (example implementation)
-const parseXmlMessage = (xmlMessage) => {
 
-    return {
-        TransactionId: '123456789',
-        Status: 'Success'
-    };
-};
+
+
 
 const parseXMLValue = (keyName, arr) => {
     let val = null;
@@ -272,11 +273,16 @@ const processApproval = async (req, res) => {
         </KuveytTurkVPosMessage>`;
 
     try {
-        const fill = await axios.post('http://localhost:3000/payment-fulfillment', json, {
+        const result = await axios.post(SANAL_POS.kart_onay_url , xmlMessage, {
             headers: {
-                'Content-Type': 'application/xml',
+                'Content-Type': 'application/html',
             },
         });
+
+        //console.log('Payment request result:', result.data );
+
+
+        console.log('json',json)
         res.send(json);
     } catch (error) {
         console.error('Error processing payment fulfillment:', error);
